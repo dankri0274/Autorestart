@@ -2,7 +2,6 @@ import os
 import time
 import ctypes
 
-# Declaring variables
 furtherPostponing = True
 
 lib = ctypes.windll.kernel32
@@ -16,12 +15,10 @@ days, hour = divmod(hour, 24)
 if os.path.isfile('restart.txt'):
 	with open('restart.txt', 'r') as f:
 		restartPostponed = f.read()
-		if restartPostponed == "postponed":
-			furtherPostponing = False
+	if restartPostponed == "postponed":
+		furtherPostponing = False
 
-if days >= 5:
-	# ctypes.windll.user32.MessageBoxW(0, f"The PC has not been restarted for {days} days, restarting now", "Restart required", 0)
-	# subprocess.run(["powershell", "-Command", "Restart-Computer"]) # Specifying to run in PowerShell and not command prompt (cmd)
+if days >= 5: # Change this to customize how long between each restart
 
 	print(f"\nThe PC has not been restarted for {days} days, restarting now")
 	choice = input("Type \'R\' to continue with restart or \'D\' to postpone restart")
@@ -39,8 +36,5 @@ if days >= 5:
 			time.sleep(3)
 			os.system("shutdown /r /t 0")
 else:
-	# Mesage, Title, Type of dialog box
-	# ctypes.windll.user32.MessageBoxW(0, f"Time since last restart: {days}d, {hour}h, {mins}m.\nThe PC will automatically restart on startup after 5 days", "No restart required", 0)
-
 	print(f"\nTime since last restart: {days}d, {hour}h, {mins}m.\nThe PC will automatically restart on startup after 5 days")
 	input("Press ENTER to exit")
