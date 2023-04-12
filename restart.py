@@ -3,6 +3,7 @@ import time
 import ctypes
 
 furtherPostponing = True
+restartAfterDays = 5 # Change this to customize how long between each restart
 
 lib = ctypes.windll.kernel32
 t = lib.GetTickCount64()
@@ -18,14 +19,14 @@ if os.path.isfile('restart.txt'):
 	if restartPostponed == "postponed":
 		furtherPostponing = False
 
-if days >= 5: # Change this to customize how long between each restart
+if days >= restartAfterDays: 
 
 	print(f"\nThe PC has not been restarted for {days} days, restarting now")
 	choice = input("Type \'R\' to continue with restart or \'D\' to postpone restart")
 
 	if choice == "R" or choice == "r":
 		os.system("shutdown /r /t 0")
-	else:
+	elif choice == "D" or choice == "d":
 		if furtherPostponing:
 			print("Restart has been postponed")
 			with open('restart.txt', 'w') as f:
@@ -36,5 +37,5 @@ if days >= 5: # Change this to customize how long between each restart
 			time.sleep(3)
 			os.system("shutdown /r /t 0")
 else:
-	print(f"\nTime since last restart: {days}d, {hour}h, {mins}m.\nThe PC will automatically restart on startup after 5 days")
+	print(f"\nTime since last restart: {days}d, {hour}h, {mins}m.\nThe PC will automatically restart on startup after {restartAfterDays} days")
 	input("Press ENTER to exit")
