@@ -39,7 +39,7 @@ if days >= restartAfterDays:
 		if furtherPostponing:
 			print("Restart has been postponed")
 			with open('restart.txt', 'w') as f:
-				f.write('restarted')
+				f.write('postponed')
 			input("Press ENTER to exit")
 		else:
 			print("Further postponing of restart is not allowed\nRestarting now")
